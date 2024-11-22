@@ -6,10 +6,11 @@ public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] private Transform[] _points; // Enemy will be instantiated at these points
     [SerializeField] private GameObject _enemyPrefab; // Reference to the enemy prefab
+    [SerializeField] private Transform _player; // Reference to the player transform
+    [SerializeField] private TankController _tank;
 
     private void Start()
     {
-        // Start the enemy instantiation coroutine when the game starts
         StartCoroutine(EnemyInstantiation());
     }
 
@@ -22,13 +23,21 @@ public class EnemyBehaviour : MonoBehaviour
             foreach (Transform point in _points)
             {
                 // Instantiate enemy at the given point position with default rotation
-                Instantiate(_enemyPrefab, point.position, Quaternion.identity);
-                yield return new WaitForSeconds(5f);
+                GameObject enemy = Instantiate(_enemyPrefab, point.position, Quaternion.identity);
 
+                // Set the player's transform as the target in the EnemyController script
+                EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                if (enemyController != null)
+                {
+                    enemyController.Setplayer(_player);
+                    enemyController.SetTank(_tank);
+                }
+
+                yield return new WaitForSeconds(2f);
             }
 
-            // Wait for 10 seconds before starting the next batch of enemies
-            yield return new WaitForSeconds(15f);
+            // Wait for 5 seconds before starting the next batch of enemies
+            yield return new WaitForSeconds(5f);
         }
     }
 }

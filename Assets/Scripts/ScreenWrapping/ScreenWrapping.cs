@@ -2,49 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 [RequireComponent(typeof(Rigidbody2D))]
 public class ScreenWrapping : MonoBehaviour
 {
+    private Rigidbody2D _rigidbody2D;
+    private Camera _camera;
 
-    private Rigidbody2D _playerigidbody;
-
-
+    // Boundaries of the screen
+    private float _screenWidth;
+    private float _screenHeight;
 
     private void Awake()
     {
-        _playerigidbody = GetComponent<Rigidbody2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _camera = Camera.main;
     }
 
     private void Update()
     {
+        // Get screen bounds
+        _screenWidth = _camera.orthographicSize * _camera.aspect;
+        _screenHeight = _camera.orthographicSize;
 
-        float _rightsideofscreen = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)).x;
-        float _leftsideofscreen = Camera.main.ScreenToWorldPoint(new Vector2(0.0f, 0.0f)).x;
-        float _topofthescreen = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)).y;
-        float _bottonofthescreen = Camera.main.ScreenToWorldPoint(new Vector2(0.0f, 0.0f)).y;
-        Vector3 _playerpos = Camera.main.WorldToScreenPoint(this.transform.position);
+        // Get the player's position in world space
+        Vector3 playerPosition = transform.position;
 
-        if (_playerpos.x > Screen.width)
+        // Check for screen wrapping (X axis)
+        if (playerPosition.x > _screenWidth)
         {
-            this.transform.position = new Vector2(_leftsideofscreen, this.transform.position.y);
+            transform.position = new Vector3(-_screenWidth, playerPosition.y, playerPosition.z);
         }
-        else if (_playerpos.x <= 0)
+        else if (playerPosition.x < -_screenWidth)
         {
-            this.transform.position = new Vector2(_rightsideofscreen, this.transform.position.y);
-        }
-        else if (_playerpos.y > Screen.height)
-        {
-            this.transform.position = new Vector2(this.transform.position.x, _bottonofthescreen);
-        }
-        else if (_playerpos.y <= 0)
-        {
-            this.transform.position = new Vector2(this.transform.position.x, _topofthescreen);
+            transform.position = new Vector3(_screenWidth, playerPosition.y, playerPosition.z);
         }
 
-
+        // Check for screen wrapping (Y axis)
+        if (playerPosition.y > _screenHeight)
+        {
+            transform.position = new Vector3(playerPosition.x, -_screenHeight, playerPosition.z);
+        }
+        else if (playerPosition.y < -_screenHeight)
+        {
+            transform.position = new Vector3(playerPosition.x, _screenHeight, playerPosition.z);
+        }
     }
-
 }
-

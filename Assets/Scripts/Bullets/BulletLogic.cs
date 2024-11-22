@@ -5,13 +5,18 @@ using UnityEngine;
 public class BulletLogic : MonoBehaviour
 {
     [SerializeField] private float _bulletSpeed; // Speed of the bullet
-    private Rigidbody2D _rigidbody;
+    
+    private Rigidbody2D _rigidBody;
 
     void Start()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
 
         // Set initial velocity based on the bullet's facing direction
-        _rigidbody.velocity = transform.up * _bulletSpeed;
+        _rigidBody.velocity = transform.up * _bulletSpeed;
     }
+
+  
+
+ 
 }
