@@ -9,7 +9,12 @@ public class GunSpeed : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _tank.DecreaseBulletRate();
-        this.gameObject.SetActive(false);
+
+        if (collision.gameObject.GetComponent<TankController>() != null) {
+            
+            _tank.DecreaseBulletRate();
+            this.gameObject.SetActive(false);
+        }
     }
+              
 }

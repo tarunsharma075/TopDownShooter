@@ -27,8 +27,10 @@ public class TankController : MonoBehaviour
     [SerializeField] private Image _healthbar;
     [SerializeField] private GameObject _mainGameScreen;
     [SerializeField] private GameObject _losegamescreen;
-    
- 
+    [SerializeField] private GameObject _textForSpaceHitInstructions;
+
+
+
 
     void Start()
     {
@@ -70,10 +72,10 @@ public class TankController : MonoBehaviour
     private void HandleMovement()
     {
 
-        float moveInput = Input.GetAxis("Vertical");
+        float moveInput = Input.GetAxisRaw("Vertical");
 
 
-        float rotationInput = Input.GetAxis("Horizontal");
+        float rotationInput = Input.GetAxisRaw("Horizontal");
 
 
         _rigidbody.velocity = transform.up * moveInput * _moveSpeed;
@@ -124,8 +126,11 @@ public class TankController : MonoBehaviour
     private IEnumerator BulletRateDecrease()
     {
         fireCooldown = 0.02f;
-        yield return new WaitForSeconds(2f);
+        _textForSpaceHitInstructions.SetActive(true);
+        yield return new WaitForSeconds(3f);
         fireCooldown = defaultFireCooldown;
+        _textForSpaceHitInstructions.SetActive(false);
+        
     }
     private IEnumerator PlayerDies()
     {
