@@ -11,19 +11,18 @@ public class RestartGame : MonoBehaviour
     {
        _restartbutton= gameObject.gameObject.GetComponent<Button>();
 
-        // Add listener for the restart button
         _restartbutton.onClick.AddListener(RestartButtonAction);
     }
 
     private void RestartButtonAction()
     {
-        // Reset level state if necessary
+        
         LevelManager.Instance.SetLevel(LevelManager.Level.LevelOne);  // Reset to Level One
 
-        // Reload the scene
+       
         SceneManager.LoadScene(scene);
 
-        // Ensure time scale is reset if it was paused
+        SoundManager.Instance.PlayBackgroundMusic(SoundManager.GameSounds.BackGroundMusic);
         Time.timeScale = 1;
     }
 }

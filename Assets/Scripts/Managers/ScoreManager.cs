@@ -76,6 +76,7 @@ public class ScoreManager : MonoBehaviour
 
     private void ProceedToNextLevel()
     {
+         SoundManager.Instance.StopBackGroundMusic();
         _maingameobj.SetActive(false);
         _nextlevelscreen.SetActive(true);
     }

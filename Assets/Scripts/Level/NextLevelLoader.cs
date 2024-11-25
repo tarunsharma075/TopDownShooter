@@ -20,5 +20,6 @@ public class NextLevelLoader : MonoBehaviour
     private void NextButtonAction()
     {
         SceneManager.LoadScene(_nextsceneindex);
+        SoundManager.Instance.PlayBackgroundMusic(SoundManager.GameSounds.BackGroundMusic);
     }
 }

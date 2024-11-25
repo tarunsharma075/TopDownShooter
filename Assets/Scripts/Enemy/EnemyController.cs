@@ -18,15 +18,17 @@ public class EnemyController : MonoBehaviour
         // Check if the collision is with a Bullet (having BulletLogic component)
         if (collision.gameObject.GetComponent<BulletLogic>() != null)
         {
-            _health--;  // Decrease health
-            Debug.Log("health decreased");
+            _health--;
+            SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.EnemyHit);
+           
 
-            Destroy(collision.gameObject);  // Destroy the bullet that collided with the enemy
+            Destroy(collision.gameObject); 
 
             if (_health <= 0)
             {
+                
                 _tank.IncreaseScore();
-                Debug.Log("enemy is going to destroyf");
+                SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.EnemyDestroy);
                 Destroy(gameObject);
             }
           

@@ -10,24 +10,24 @@ using Unity.VisualScripting;
 public class TankController : MonoBehaviour
 {
     [Header("Tank Movement Settings")]
-    [SerializeField] private float moveSpeed = 5f; // Speed of tank movement
-    [SerializeField] private float rotationSpeed = 200f; // Speed of tank rotation
+    [SerializeField] private float _moveSpeed = 5f; 
+    [SerializeField] private float _rotationSpeed = 200f; 
 
     [Header("Bullet Settings")]
-    [SerializeField] private GameObject bulletPrefab; // Prefab for the bullet
-    [SerializeField] private Transform bulletSpawnPoint; // Where bullets spawn
-    [SerializeField] private float defaultFireCooldown = 0.5f; // Keep track of the default fire cooldown
-    private float fireCooldown = 0.5f; // Time between each bullet fire
+    [SerializeField] private GameObject bulletPrefab; 
+    [SerializeField] private Transform bulletSpawnPoint; 
+    [SerializeField] private float defaultFireCooldown = 0.5f; 
+    private float fireCooldown = 0.5f; 
 
     private Rigidbody2D _rigidbody;
-    private float _fireTimer = 0f; // Timer to handle fire cooldown
+    private float _fireTimer = 0f; 
     [SerializeField] private ScoreManager _playerscore;
     [SerializeField] private int _health;
     [SerializeField] private int _maxhealth;
     [SerializeField] private Image _healthbar;
     [SerializeField] private GameObject _mainGameScreen;
     [SerializeField] private GameObject _losegamescreen;
-    [SerializeField] private EnemyController _enemycontroller;
+    
  
 
     void Start()
@@ -50,36 +50,39 @@ public class TankController : MonoBehaviour
         if (collision.gameObject.GetComponent<EnemyController>() != null)
         {
           
-            _health -= 10; 
+            _health -= 10;
+            RefreshHealthBar();
+            SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.TankCollison);
             this.transform.position = new Vector3(this.transform.position.x - 2, this.transform.position.y - 2, this.transform.position.z);
-
-            RefreshHealthBar(); 
+           
+           
             DecreaseScore();
 
            
             if (_health <= 0)
             {
+                StartCoroutine(PlayerDies());
                 
-                _mainGameScreen.SetActive(false); 
-                _losegamescreen.SetActive(true); 
-                Time.timeScale = 0;
+               
             }
         }
     }
-
     private void HandleMovement()
     {
-        
+
         float moveInput = Input.GetAxis("Vertical");
 
-       
+
         float rotationInput = Input.GetAxis("Horizontal");
 
-       
-        _rigidbody.velocity = transform.up * moveInput * moveSpeed;
 
-    
-        transform.Rotate(Vector3.forward, -rotationInput * rotationSpeed * Time.deltaTime);
+        _rigidbody.velocity = transform.up * moveInput * _moveSpeed;
+
+
+        transform.Rotate(Vector3.forward, -rotationInput * _rotationSpeed * Time.deltaTime);
+
+
+
     }
 
     private void HandleShooting()
@@ -92,7 +95,9 @@ public class TankController : MonoBehaviour
 
     private void FireBullet()
     {  
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);  
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.TankFiring);
+
     }
 
     public void IncreaseScore()
@@ -121,5 +126,14 @@ public class TankController : MonoBehaviour
         fireCooldown = 0.02f;
         yield return new WaitForSeconds(2f);
         fireCooldown = defaultFireCooldown;
+    }
+    private IEnumerator PlayerDies()
+    {
+        SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.TankDestroy);
+        SoundManager.Instance.StopBackGroundMusic();
+        yield return new WaitForSeconds(2);
+        _mainGameScreen.SetActive(false);
+        _losegamescreen.SetActive(true);
+        Time.timeScale = 0;
     }
 }
