@@ -23,7 +23,7 @@ public class TankController : MonoBehaviour
     private float _fireTimer = 0f; 
     [SerializeField] private ScoreManager _playerscore;
     [SerializeField] private int _health;
-    [SerializeField] private int _maxhealth;
+    [SerializeField] private int _maxhealth=100;
     [SerializeField] private Image _healthbar;
     [SerializeField] private GameObject _mainGameScreen;
     [SerializeField] private GameObject _losegamescreen;
@@ -51,8 +51,16 @@ public class TankController : MonoBehaviour
         
         if (collision.gameObject.GetComponent<EnemyController>() != null)
         {
-          
-            _health -= 10;
+
+            if(LevelManager.Instance.GetLevel() == LevelManager.Level.LevelOne){
+                _health -= 10;
+            }else if(LevelManager.Instance.GetLevel() == LevelManager.Level.LevelTwo)
+            {
+                _health -= 15;
+            }else if(LevelManager.Instance.GetLevel() == LevelManager.Level.LevelThree)
+            {
+                _health -= 20;
+            }
             RefreshHealthBar();
             SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.TankCollison);
             this.transform.position = new Vector3(this.transform.position.x - 2, this.transform.position.y - 2, this.transform.position.z);
@@ -104,12 +112,36 @@ public class TankController : MonoBehaviour
 
     public void IncreaseScore()
     {
-        _playerscore.IncreaseScore(10); // Increase score
+        if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelOne)
+        {
+            _playerscore.IncreaseScore(100); // Increase score
+        }
+        else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelTwo)
+        {
+            _playerscore.IncreaseScore(150); 
+        }
+        else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelThree)
+        {
+            _playerscore.IncreaseScore(200); 
+        }
+        
     }
 
     private void DecreaseScore()
     {
-        _playerscore.DecreaseScore(5); // Decrease score
+        if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelOne)
+        {
+            _playerscore.DecreaseScore(10); // Decrease score
+        }
+        else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelTwo)
+        {
+            _playerscore.DecreaseScore(50); // Decrease score
+        }
+        else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelThree)
+        {
+            _playerscore.DecreaseScore(100); // Decrease score
+        }
+       
     }
 
     private void RefreshHealthBar()
@@ -117,21 +149,21 @@ public class TankController : MonoBehaviour
         _healthbar.fillAmount = Mathf.Clamp((float)_health / _maxhealth, 0, 1); // Update health bar
     }
 
-    public  void DecreaseBulletRate()
-    {
-        // for a given amount of time the rate of fire will be decrease
-        StartCoroutine(BulletRateDecrease());
-    }
+    //public  void DecreaseBulletRate()
+    //{
+    //    // for a given amount of time the rate of fire will be decrease
+    //    StartCoroutine(BulletRateDecrease());
+    //}
 
-    private IEnumerator BulletRateDecrease()
-    {
-        fireCooldown = 0.02f;
-        _textForSpaceHitInstructions.SetActive(true);
-        yield return new WaitForSeconds(3f);
-        fireCooldown = defaultFireCooldown;
-        _textForSpaceHitInstructions.SetActive(false);
+    //private IEnumerator BulletRateDecrease()
+    //{
+    //    fireCooldown = 0.02f;
+    //    _textForSpaceHitInstructions.SetActive(true);
+    //    yield return new WaitForSeconds(3f);
+    //    fireCooldown = defaultFireCooldown;
+    //    _textForSpaceHitInstructions.SetActive(false);
         
-    }
+    //}
     private IEnumerator PlayerDies()
     {
         SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.TankDestroy);
@@ -140,5 +172,26 @@ public class TankController : MonoBehaviour
         _mainGameScreen.SetActive(false);
         _losegamescreen.SetActive(true);
         Time.timeScale = 0;
+    }
+
+    public  void IncreaeHealth()
+    {
+        if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelOne)
+        {
+            _health += 10;
+        }else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelTwo)
+        {
+            _health += 20;
+        }
+        else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelThree)
+        {
+            _health += 25;
+        }
+            RefreshHealthBar();
+        if (_health > _maxhealth) { 
+        _health= _maxhealth;
+            RefreshHealthBar() ;
+        
+        }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunSpeed : MonoBehaviour
+public class PowerUpsBehaviorForHeart : MonoBehaviour
 {
 
     [SerializeField] private TankController _tank;

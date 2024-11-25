@@ -40,10 +40,10 @@ public class PowerUpManager : MonoBehaviour
             _heartVisual.SetActive(false);
 
 
-            yield return new WaitForSeconds(Random.Range(1, 5));
+            yield return new WaitForSeconds(Random.Range(5, 10));
             _thunderViusal.SetActive(true);
             SetRandomPositionOfPowerUps();
-            yield return new WaitForSeconds(Random.Range(5, 10));
+            yield return new WaitForSeconds(Random.Range(10, 15));
             _heartVisual.SetActive(true);
             SetRandomPositionOfPowerUps();
 
