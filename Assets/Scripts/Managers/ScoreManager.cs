@@ -31,7 +31,7 @@ public class ScoreManager : MonoBehaviour
 
         if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelOne)
         {
-            if (_score >= 150)
+            if (_score >= 500)
             {
                 ProceedToNextLevel();
 
@@ -41,7 +41,7 @@ public class ScoreManager : MonoBehaviour
         }
         else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelTwo)
         {
-            if (_score >= 200)
+            if (_score >= 750)
             {
                 ProceedToNextLevel();
 
@@ -53,9 +53,13 @@ public class ScoreManager : MonoBehaviour
         else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelThree);
         {
 
-            if (_score >= 100)
+            if (_score >= 1000)
             {
-                ProceedToNextLevel();
+                SoundManager.Instance.StopBackGroundMusic();
+                SoundManager.Instance.PlayBackgroundMusic(SoundManager.GameSounds.StageClear);
+                
+                _maingameobj.SetActive(false);
+                _nextlevelscreen.SetActive(true);
 
 
             }

@@ -9,34 +9,41 @@ using Unity.VisualScripting;
 
 public class TankController : MonoBehaviour
 {
-    [Header("Tank Movement Settings")]
+   // for tank movement abnd rottaion 
     [SerializeField] private float _moveSpeed = 5f; 
     [SerializeField] private float _rotationSpeed = 200f; 
 
-    [Header("Bullet Settings")]
+  
     [SerializeField] private GameObject bulletPrefab; 
     [SerializeField] private Transform bulletSpawnPoint; 
-    [SerializeField] private float defaultFireCooldown = 0.5f; 
-    private float fireCooldown = 0.5f; 
+    private float fireCooldown ;
 
     private Rigidbody2D _rigidbody;
     private float _fireTimer = 0f; 
-    [SerializeField] private ScoreManager _playerscore;
+    [SerializeField] private ScoreManager _playerScore;
     [SerializeField] private int _health;
     [SerializeField] private int _maxhealth=100;
-    [SerializeField] private Image _healthbar;
+    [SerializeField] private Image _healthBar;
     [SerializeField] private GameObject _mainGameScreen;
-    [SerializeField] private GameObject _losegamescreen;
-    [SerializeField] private GameObject _textForSpaceHitInstructions;
-
-
-
-
+    [SerializeField] private GameObject _loseGameScreen;
+   
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
 
-      
+        if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelOne)
+        {
+            fireCooldown = 0.05f;
+        }else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelTwo)
+        {
+            fireCooldown = 0.04f;
+        }
+        else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelThree)
+        {
+
+            fireCooldown = 0.03f;
+
+        }
 
     }
 
@@ -114,15 +121,15 @@ public class TankController : MonoBehaviour
     {
         if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelOne)
         {
-            _playerscore.IncreaseScore(100); // Increase score
+            _playerScore.IncreaseScore(100); // Increase score
         }
         else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelTwo)
         {
-            _playerscore.IncreaseScore(150); 
+            _playerScore.IncreaseScore(150); 
         }
         else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelThree)
         {
-            _playerscore.IncreaseScore(200); 
+            _playerScore.IncreaseScore(200); 
         }
         
     }
@@ -131,46 +138,31 @@ public class TankController : MonoBehaviour
     {
         if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelOne)
         {
-            _playerscore.DecreaseScore(10); // Decrease score
+            _playerScore.DecreaseScore(10); // Decrease score
         }
         else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelTwo)
         {
-            _playerscore.DecreaseScore(50); // Decrease score
+            _playerScore.DecreaseScore(50); // Decrease score
         }
         else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelThree)
         {
-            _playerscore.DecreaseScore(100); // Decrease score
+            _playerScore.DecreaseScore(100); // Decrease score
         }
        
     }
 
     private void RefreshHealthBar()
     {
-        _healthbar.fillAmount = Mathf.Clamp((float)_health / _maxhealth, 0, 1); // Update health bar
+        _healthBar.fillAmount = Mathf.Clamp((float)_health / _maxhealth, 0, 1); // Update health bar
     }
 
-    //public  void DecreaseBulletRate()
-    //{
-    //    // for a given amount of time the rate of fire will be decrease
-    //    StartCoroutine(BulletRateDecrease());
-    //}
-
-    //private IEnumerator BulletRateDecrease()
-    //{
-    //    fireCooldown = 0.02f;
-    //    _textForSpaceHitInstructions.SetActive(true);
-    //    yield return new WaitForSeconds(3f);
-    //    fireCooldown = defaultFireCooldown;
-    //    _textForSpaceHitInstructions.SetActive(false);
-        
-    //}
     private IEnumerator PlayerDies()
     {
         SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.TankDestroy);
         SoundManager.Instance.StopBackGroundMusic();
         yield return new WaitForSeconds(2);
         _mainGameScreen.SetActive(false);
-        _losegamescreen.SetActive(true);
+        _loseGameScreen.SetActive(true);
         Time.timeScale = 0;
     }
 

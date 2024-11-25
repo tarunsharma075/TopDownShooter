@@ -85,6 +85,7 @@ public class SoundManager : MonoBehaviour
         TankCollison,
         EnemyDestroy,
         EnemyHit,
+        StageClear,
         
     }
 }
