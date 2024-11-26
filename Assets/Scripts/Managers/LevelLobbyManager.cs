@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 using static LevelManager;
 
@@ -42,23 +43,32 @@ public class LevelLobbyManager : MonoBehaviour
     public void  SetStatus(string LevelName, LevelStatus _levelStatus)
     {
        PlayerPrefs.SetInt(LevelName,(int)_levelStatus);
-        PlayerPrefs.Save();
+       
     }
      
     public LevelStatus GetStatus(string LevelName)
     {
-        int LevelStatus = PlayerPrefs.GetInt(LevelName,0);
-        return (LevelStatus)LevelStatus;
+        int StatusValue = PlayerPrefs.GetInt(LevelName,0);
+        return (LevelStatus)StatusValue;
     }
 
-    public void LevelCompletionLevelUnlocked(string LevelName)
+    public void LevelCompletionLevelUnlocked()
     {
-      SetStatus(SceneManager.GetActiveScene().name,LevelStatus.Completed);
+        SetStatus(SceneManager.GetActiveScene().name, LevelStatus.Completed);
         Scene CurrentScene = SceneManager.GetActiveScene();
         int NextSceneIndex = CurrentScene.buildIndex + 1;
-        Scene NextScene = SceneManager.GetSceneByBuildIndex(NextSceneIndex);
-        SetStatus(NextScene.name, LevelStatus.Unlocked);
+        if (NextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            string NextLevelPath= SceneUtility.GetScenePathByBuildIndex(NextSceneIndex);
+            string NextLevelName= System.IO.Path.GetFileNameWithoutExtension(NextLevelPath);
+
+            SetStatus(NextLevelName,LevelStatus.Unlocked);
+        }
+        else
+        {
+            Debug.Log("Nothing Happened");
+        }
 
     }
-    
+
 }

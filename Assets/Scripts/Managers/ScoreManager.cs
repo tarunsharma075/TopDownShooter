@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -33,9 +34,7 @@ public class ScoreManager : MonoBehaviour
         {
             if (_score >= 500)
             {
-                LevelLobbyManager.Instance.LevelCompletionLevelUnlocked("Level 1");
-
-
+                LevelLobbyManager.Instance.LevelCompletionLevelUnlocked();
                 ProceedToNextLevel();
                
 
@@ -46,7 +45,7 @@ public class ScoreManager : MonoBehaviour
         {
             if (_score >= 750)
             {
-                LevelLobbyManager.Instance.LevelCompletionLevelUnlocked("Level 2");
+                LevelLobbyManager.Instance.LevelCompletionLevelUnlocked();
                 ProceedToNextLevel();
                
 
@@ -59,14 +58,11 @@ public class ScoreManager : MonoBehaviour
 
             if (_score >= 1000)
             {
-
-
-                LevelLobbyManager.Instance.LevelCompletionLevelUnlocked("Level 3");
+                LevelLobbyManager.Instance.LevelCompletionLevelUnlocked();
                 SoundManager.Instance.StopBackGroundMusic();
                 SoundManager.Instance.PlayBackgroundMusic(SoundManager.GameSounds.StageClear);
                
-
-                _mainGameScreen.SetActive(false);
+                 _mainGameScreen.SetActive(false);
                 _nextLevelScreen.SetActive(true);
 
 
@@ -74,7 +70,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    internal void DecreaseScore(int decrement)
+public void DecreaseScore(int decrement)
     {
        _score -= decrement;
         if (_score <= 0)

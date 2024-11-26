@@ -5,8 +5,8 @@ public class LevelManager : MonoBehaviour
     private static LevelManager _instance;
     public static LevelManager Instance => _instance;
 
-     private Level _level = Level.LevelOne;
-
+     [SerializeField] private Level _level = Level.LevelOne;
+    
     private void Awake()
     {
         if (_instance == null)

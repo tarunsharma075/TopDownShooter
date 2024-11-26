@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _mainMenuButton.gameObject.GetComponent<Button>();
-        _mainMenuButton.onClick.RemoveAllListeners();
+        _mainMenuButton.onClick.AddListener (OnClickAction);
     }
 
     // Update is called once per frame
