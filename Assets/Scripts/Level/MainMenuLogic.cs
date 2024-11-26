@@ -11,12 +11,13 @@ using UnityEngine.SceneManagement;
 
         void Start()
         {
-            _mainMenuButton.onClick.AddListener(LoadMaintMenu);
+            _mainMenuButton.onClick.AddListener(LoadMainMenu);
         }
 
-        private void  LoadMaintMenu()
+        private void  LoadMainMenu()
         {
         SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.ButtonClick);
-        SceneManager.LoadScene(0);
+        SoundManager.Instance.PlayBackgroundMusic(SoundManager.GameSounds.BackGroundMusic); 
+        SceneManager.LoadScene("Lobby");
         }
     }

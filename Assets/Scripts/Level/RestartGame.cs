@@ -23,6 +23,6 @@ public class RestartGame : MonoBehaviour
         SceneManager.LoadScene(scene);
 
         SoundManager.Instance.PlayBackgroundMusic(SoundManager.GameSounds.BackGroundMusic);
-        Time.timeScale = 1;
+        
     }
 }

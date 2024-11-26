@@ -163,7 +163,7 @@ public class TankController : MonoBehaviour
         yield return new WaitForSeconds(2);
         _mainGameScreen.SetActive(false);
         _loseGameScreen.SetActive(true);
-        Time.timeScale = 0;
+       
     }
 
     public  void IncreaeHealth()
