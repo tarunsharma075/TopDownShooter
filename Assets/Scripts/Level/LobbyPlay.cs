@@ -17,6 +17,7 @@ public class LobbyPlay : MonoBehaviour
 
     private void  LevelLobby()
     {
+        SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.ButtonClick);
        _playLobby.SetActive(false);
        _levelLobby.SetActive(true);
     }

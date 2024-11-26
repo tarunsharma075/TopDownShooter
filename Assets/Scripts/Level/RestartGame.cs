@@ -17,9 +17,9 @@ public class RestartGame : MonoBehaviour
 
     private void RestartButtonAction()
     {
-        
 
-       
+
+        SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.ButtonClick);
         SceneManager.LoadScene(scene);
 
         SoundManager.Instance.PlayBackgroundMusic(SoundManager.GameSounds.BackGroundMusic);

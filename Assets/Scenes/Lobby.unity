@@ -417,7 +417,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f1ff44c4913b554ead56eea87bf2e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: 0
 --- !u!4 &408305161
 Transform:
   m_ObjectHideFlags: 0
@@ -1259,6 +1258,8 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 9e2df417a82b8444b82e42a5df77c547, type: 3}
   - Sounds: 2
     Clip: {fileID: 8300000, guid: 500604e253ff19c4781569fc1d2cb6c2, type: 3}
+  - Sounds: 7
+    Clip: {fileID: 8300000, guid: f52a7c26c76a4414ca263cf8b46128c6, type: 3}
   _backgroundSound: {fileID: 348167547}
   _sfxSounds: {fileID: 1411626880}
 --- !u!4 &1191978712

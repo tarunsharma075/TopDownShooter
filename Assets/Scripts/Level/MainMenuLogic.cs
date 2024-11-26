@@ -16,6 +16,7 @@ using UnityEngine.SceneManagement;
 
         private void  LoadMaintMenu()
         {
+        SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.ButtonClick);
         SceneManager.LoadScene(0);
         }
     }

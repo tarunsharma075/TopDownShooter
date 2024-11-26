@@ -19,6 +19,7 @@ public class NextLevelLoader : MonoBehaviour
 
     private void NextButtonAction()
     {
+        SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.ButtonClick);
         SceneManager.LoadScene(_nextsceneindex);
         SoundManager.Instance.PlayBackgroundMusic(SoundManager.GameSounds.BackGroundMusic);
     }

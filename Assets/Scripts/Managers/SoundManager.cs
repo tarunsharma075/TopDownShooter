@@ -86,6 +86,7 @@ public class SoundManager : MonoBehaviour
         EnemyDestroy,
         EnemyHit,
         StageClear,
+        ButtonClick,
         
     }
 }

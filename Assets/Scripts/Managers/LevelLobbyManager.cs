@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static LevelManager;
 
 public class LevelLobbyManager : MonoBehaviour
@@ -45,5 +46,14 @@ public class LevelLobbyManager : MonoBehaviour
         return (LevelStatus)LevelStatus;
     }
 
+    public void LevelCompletionLevelUnlocked(string LevelName)
+    {
+      SetStatus(SceneManager.GetActiveScene().name,LevelStatus.Completed);
+        Scene CurrentScene = SceneManager.GetActiveScene();
+        int NextSceneIndex = CurrentScene.buildIndex + 1;
+        Scene NextScene = SceneManager.GetSceneByBuildIndex(NextSceneIndex);
+        SetStatus(NextScene.name, LevelStatus.Unlocked);
+
+    }
     
 }

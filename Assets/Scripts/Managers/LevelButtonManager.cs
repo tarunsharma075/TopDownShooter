@@ -30,12 +30,12 @@ public class LevelButtonManager : MonoBehaviour
                 Debug.Log("locked");
                 break;
             case LevelStatus.Unlocked:
-                SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.EnemyHit);
+                SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.ButtonClick);
                 SceneManager.LoadScene(_levelToLoad);
 
                 break;
             case LevelStatus.Completed:
-                SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.EnemyHit);
+                SoundManager.Instance.PlaySfxSound(SoundManager.GameSounds.ButtonClick);
                 SceneManager.LoadScene(_levelToLoad);
                 break;
 
