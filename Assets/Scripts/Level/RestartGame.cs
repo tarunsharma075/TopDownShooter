@@ -4,14 +4,14 @@ using UnityEngine.SceneManagement;
 
 public class RestartGame : MonoBehaviour
 {
-    [SerializeField] private Button _restartbutton;  // Button to restart the game
+    [SerializeField] private Button _restartButton;  // Button to restart the game
      private int  scene;  // Name of the scene to load
 
     void Start()
     {
-       _restartbutton= gameObject.gameObject.GetComponent<Button>();
+       _restartButton= gameObject.gameObject.GetComponent<Button>();
 
-        _restartbutton.onClick.AddListener(RestartButtonAction);
+        _restartButton.onClick.AddListener(RestartButtonAction);
         scene= SceneManager.GetActiveScene().buildIndex;
     }
 

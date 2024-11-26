@@ -2145,7 +2145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850f27f86b3569345add70d5bdfbba55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _restartbutton: {fileID: 1728641396}
+  _restartButton: {fileID: 1728641396}
 --- !u!114 &1728641396
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,8 +7,8 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _playerscore;
-    [SerializeField] private GameObject _maingameobj;
-    [SerializeField] private GameObject _nextlevelscreen;
+    [SerializeField] private GameObject _mainGameScreen;
+    [SerializeField] private GameObject _nextLevelScreen;
     //[SerializeField] private TextMeshProUGUI _playerscore;
     int _score = 0;
 
@@ -61,8 +61,8 @@ public class ScoreManager : MonoBehaviour
                 SoundManager.Instance.StopBackGroundMusic();
                 SoundManager.Instance.PlayBackgroundMusic(SoundManager.GameSounds.StageClear);
                 
-                _maingameobj.SetActive(false);
-                _nextlevelscreen.SetActive(true);
+                _mainGameScreen.SetActive(false);
+                _nextLevelScreen.SetActive(true);
 
 
             }
@@ -84,7 +84,7 @@ public class ScoreManager : MonoBehaviour
     private void ProceedToNextLevel()
     {
          SoundManager.Instance.StopBackGroundMusic();
-        _maingameobj.SetActive(false);
-        _nextlevelscreen.SetActive(true);
+        _mainGameScreen.SetActive(false);
+        _nextLevelScreen.SetActive(true);
     }
 }
