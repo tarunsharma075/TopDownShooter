@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static LevelManager;
 
 public class LevelLobbyManager : MonoBehaviour
@@ -11,6 +12,8 @@ public class LevelLobbyManager : MonoBehaviour
     private static LevelLobbyManager _instance;
    public static LevelLobbyManager Instance { get { return _instance; } }
 
+   
+    
     private void Awake()
     {
         if (_instance == null)
@@ -30,6 +33,8 @@ public class LevelLobbyManager : MonoBehaviour
 
             SetStatus("Level 1", LevelStatus.Unlocked);
         }
+
+        
     }
 
   

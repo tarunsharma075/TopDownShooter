@@ -34,8 +34,10 @@ public class ScoreManager : MonoBehaviour
             if (_score >= 500)
             {
                 LevelLobbyManager.Instance.LevelCompletionLevelUnlocked("Level 1");
-                ProceedToNextLevel();
 
+
+                ProceedToNextLevel();
+               
 
             }
 
@@ -46,7 +48,7 @@ public class ScoreManager : MonoBehaviour
             {
                 LevelLobbyManager.Instance.LevelCompletionLevelUnlocked("Level 2");
                 ProceedToNextLevel();
-
+               
 
             }
 
@@ -57,10 +59,13 @@ public class ScoreManager : MonoBehaviour
 
             if (_score >= 1000)
             {
+
+
                 LevelLobbyManager.Instance.LevelCompletionLevelUnlocked("Level 3");
                 SoundManager.Instance.StopBackGroundMusic();
                 SoundManager.Instance.PlayBackgroundMusic(SoundManager.GameSounds.StageClear);
-                
+               
+
                 _mainGameScreen.SetActive(false);
                 _nextLevelScreen.SetActive(true);
 
