@@ -87,10 +87,10 @@ public class TankController : MonoBehaviour
     private void HandleMovement()
     {
 
-        float moveInput = Input.GetAxisRaw("Vertical");
+        float moveInput = Input.GetAxis("Vertical");
 
 
-        float rotationInput = Input.GetAxisRaw("Horizontal");
+        float rotationInput = Input.GetAxis("Horizontal");
 
 
         _rigidbody.velocity = transform.up * moveInput * _moveSpeed;

@@ -5,7 +5,6 @@ using UnityEngine;
 public class PowerUpManager : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D _border;
-    [SerializeField] private  GameObject _thunderViusal;
     [SerializeField] private GameObject _heartVisual;
 
 
@@ -36,14 +35,12 @@ public class PowerUpManager : MonoBehaviour
     {
         while (true)
         {
-            _thunderViusal.SetActive(false);
+           
             _heartVisual.SetActive(false);
 
 
+            
             yield return new WaitForSeconds(Random.Range(5, 10));
-            _thunderViusal.SetActive(true);
-            SetRandomPositionOfPowerUps();
-            yield return new WaitForSeconds(Random.Range(10, 15));
             _heartVisual.SetActive(true);
             SetRandomPositionOfPowerUps();
 

@@ -5,7 +5,7 @@ public class LevelManager : MonoBehaviour
     private static LevelManager _instance;
     public static LevelManager Instance => _instance;
 
-    [SerializeField] private Level _level = Level.LevelOne;
+     private Level _level = Level.LevelOne;
 
     private void Awake()
     {
@@ -20,12 +20,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public enum Level
-    {
-        LevelOne,
-        LevelTwo,
-        LevelThree,
-    }
+    
 
     public void SetLevel(Level level)
     {
@@ -37,4 +32,10 @@ public class LevelManager : MonoBehaviour
         return _level;
     }
 
+    public enum Level
+    {
+        LevelOne,
+        LevelTwo,
+        LevelThree,
+    }
 }
