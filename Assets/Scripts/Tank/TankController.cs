@@ -117,38 +117,39 @@ public class TankController : MonoBehaviour
 
     }
 
-    public void IncreaseScore()
+     public void IncreaseScore()
     {
-        if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelOne)
+        int scoreIncrease = 0;
+        switch (LevelManager.Instance.GetLevel())
         {
-            _playerScore.IncreaseScore(100); // Increase score
+            case LevelManager.Level.LevelOne:
+                scoreIncrease = 100;
+                break;
+            case LevelManager.Level.LevelTwo:
+                scoreIncrease = 150;
+                break;
+            case LevelManager.Level.LevelThree:
+                scoreIncrease = 200;
+                break;
         }
-        else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelTwo)
-        {
-            _playerScore.IncreaseScore(150); 
-        }
-        else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelThree)
-        {
-            _playerScore.IncreaseScore(200); 
-        }
-        
+        _playerScore.IncreaseScore(scoreIncrease);
     }
-
-    private void DecreaseScore()
+    public  void DecreaseScore()
     {
-        if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelOne)
+        int scoreDecrease = 0;
+        switch (LevelManager.Instance.GetLevel())
         {
-            _playerScore.DecreaseScore(10); // Decrease score
+            case LevelManager.Level.LevelOne:
+                scoreDecrease = 10;
+                break;
+            case LevelManager.Level.LevelTwo:
+                scoreDecrease = 50;
+                break;
+            case LevelManager.Level.LevelThree:
+                scoreDecrease = 100;
+                break;
         }
-        else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelTwo)
-        {
-            _playerScore.DecreaseScore(50); // Decrease score
-        }
-        else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelThree)
-        {
-            _playerScore.DecreaseScore(100); // Decrease score
-        }
-       
+        _playerScore.DecreaseScore(scoreDecrease);
     }
 
     private void RefreshHealthBar()
@@ -166,24 +167,27 @@ public class TankController : MonoBehaviour
        
     }
 
-    public  void IncreaeHealth()
+    public void IncreaseHealth()
     {
-        if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelOne)
+        int healthIncrease = 0;
+        switch (LevelManager.Instance.GetLevel())
         {
-            _health += 10;
-        }else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelTwo)
+            case LevelManager.Level.LevelOne:
+                healthIncrease = 10;
+                break;
+            case LevelManager.Level.LevelTwo:
+                healthIncrease = 20;
+                break;
+            case LevelManager.Level.LevelThree:
+                healthIncrease = 25;
+                break;
+        }
+
+        _health += healthIncrease;
+        if (_health > _maxhealth)
         {
-            _health += 20;
+            _health = _maxhealth;
         }
-        else if (LevelManager.Instance.GetLevel() == LevelManager.Level.LevelThree)
-        {
-            _health += 25;
-        }
-            RefreshHealthBar();
-        if (_health > _maxhealth) { 
-        _health= _maxhealth;
-            RefreshHealthBar() ;
-        
-        }
+        RefreshHealthBar();
     }
 }
