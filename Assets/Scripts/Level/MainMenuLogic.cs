@@ -8,8 +8,7 @@ using UnityEngine.SceneManagement;
     public class MainMenuLogic : MonoBehaviour
     {
         [SerializeField] private Button _mainMenuButton;
-        
-        [SerializeField] private GameObject _mainMenuScreen;
+       
        
 
         void Start()
