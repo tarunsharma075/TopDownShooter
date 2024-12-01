@@ -11,7 +11,8 @@ public class PowerUpsBehaviorForHeart : MonoBehaviour
     {
 
         if (collision.gameObject.GetComponent<TankController>() != null) {
-            
+
+            Debug.Log("hit");
             _tank.IncreaseHealth();
             this.gameObject.SetActive(false);
         }
